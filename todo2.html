@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    /* CSS styles remain the same */
+    /* ... */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="submit" value="Login">
+    </form>
+    <div id="result"></div>
+
+    <script>
+      document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        // Vulnerable code: Displaying the username without proper sanitization
+        document.getElementById("result").innerHTML = "Welcome, " + username + "!";
+
+        // Perform your security tool tests here
+
+        // Example validation (for demonstration purposes)
+        if (username === "admin" && password === "password") {
+          document.getElementById("result").textContent = "Login successful!";
+        } else {
+          document.getElementById("result").textContent = "Invalid username or password.";
+        }
+      });
+    </script>
+  </div>
+
+  <script>
+    // Malicious script tag
+    var script = document.createElement("script");
+    script.textContent = 'alert("XSS Attack!");';
+    document.body.appendChild(script);
+  </script>
+</body>
+</html>
